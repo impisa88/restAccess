@@ -1,0 +1,2 @@
+C:\Users\jgh88\source\repos\ConsoleApplication2\ConsoleApplication2\x64\Debug\ConsoleApplication2.vcxproj.CopyComplete
+C:\Users\jgh88\source\repos\ServerAccess\ConsoleApplication2\x64\Debug\ConsoleApplication2.vcxproj.CopyComplete
