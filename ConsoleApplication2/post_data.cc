@@ -3,30 +3,17 @@
 #include "curl/curl.h"
 #include <sstream>
 
-/*
+
 PostData::PostData()
     : id(0), fkFileType(0), fkFile(0), altitude(0), latitude(0), longitude(0) {}
 
-*/
-
-PostData::PostData()
-    : fkFileType(0), fkFile(0), azimuth(0), height(0) {}
-
-PostData::PostData(const std::string& name, const std::string& path, const std::string& systemLinkPath, int fkFileType, int fkFile, float azimuth, float height)
-    : name(name), path(path), systemLinkPath(systemLinkPath),
-    fkFileType(fkFileType), fkFile(fkFile), azimuth(azimuth), height(height) {}
-
-/*
-PostData::PostData(int id, const std::string& name, const std::string& path,
-    const std::string& systemLinkPath, int fkFileType,
-    int fkFile, int altitude, int latitude, int longitude)
+PostData::PostData(int id, const std::string& name, const std::string& path, const std::string& systemLinkPath, int fkFileType, int fkFile, double altitude, double latitude, double longitude)
     : id(id), name(name), path(path), systemLinkPath(systemLinkPath),
     fkFileType(fkFileType), fkFile(fkFile), altitude(altitude),
     latitude(latitude), longitude(longitude) {}
-*/
 
 
-/*
+
 std::string PostData::toJsonString() const {
     std::ostringstream json;
     json << "{"
@@ -42,21 +29,6 @@ std::string PostData::toJsonString() const {
         << "}";
     return json.str();
 }
-*/
-
-std::string PostData::toJsonString() const {
-    std::ostringstream json;
-    json << "{"
-        << "\"name\":\"" << name << "\","
-        << "\"path\":\"" << path << "\","
-        << "\"system_link_path\":\"" << systemLinkPath << "\","
-        << "\"fk_file_type\":" << fkFileType << ","
-        << "\"fk_file\":" << fkFile << ","
-        << "\"azimuth\":" << azimuth << ","
-        << "\"height\":" << height
-        << "}";
-    return json.str();
-}
 
 
 std::string PostData::sendPostData(const char* url, const std::string& accessToken) const {
@@ -65,7 +37,8 @@ std::string PostData::sendPostData(const char* url, const std::string& accessTok
         return "";  // error in curl start
     };
 
-    std::string postJson = toJsonString();
+    // postJson posui os dados de PostData
+    std::string postJson = toJsonString(); 
 
     // Configurate a url for a POST request
     curl_easy_setopt(curl, CURLOPT_URL, url);
@@ -84,6 +57,7 @@ std::string PostData::sendPostData(const char* url, const std::string& accessTok
     std::string authHeader = "Authorization: Bearer " + accessToken;
     struct curl_slist* headers = NULL;
     headers = curl_slist_append(headers, authHeader.c_str());
+    headers = curl_slist_append(headers, "Content-Type: application/json");
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
 
     //Do a Post request

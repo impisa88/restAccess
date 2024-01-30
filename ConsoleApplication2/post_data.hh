@@ -5,23 +5,22 @@
 
 class PostData {
 private:
-    //int id;
+    int id;
     std::string name;
     std::string path;
     std::string systemLinkPath;
     int fkFileType;
     int fkFile;
-    //int altitude;
-    //int latitude;
-    //int longitude;
-    float height;
-    float azimuth;
+    double altitude;
+    double latitude;
+    double longitude;
+
 
 public:
     PostData();
-    PostData(/*int id,*/const std::string& name, const std::string& path,
+    PostData(int id, const std::string& name, const std::string& path,
         const std::string& systemLinkPath, int fkFileType,
-        int fkFile, float azimuth, float height/*int altitude, int latitude, int longitude*/);
+        int fkFile, double altitude, double latitude, double longitude);
 
     std::string toJsonString() const;
 
